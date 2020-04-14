@@ -19,6 +19,17 @@
         app:layout_constraintTop_toTopOf="@+id/btnChangeUser"
         app:layout_constraintBottom_toBottomOf="@+id/btnChangeUser" />
 
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter name"
+        android:visibility="gone"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnChangeUser"
+        app:layout_constraintBottom_toBottomOf="@+id/btnChangeUser" />
+
     <Button
         android:id="@+id/btnChangeUser"
         android:text="Change User"
@@ -73,7 +84,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tvSongArtist"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
         />
 
     <!-- Song controller -->
@@ -97,7 +107,8 @@
         android:src="@drawable/btn_play"
         app:layout_constraintTop_toBottomOf="@+id/tvSongPlays"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp" />
 
     <ImageButton
         android:id="@+id/btnNext"
