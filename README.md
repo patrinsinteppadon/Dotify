@@ -8,3 +8,5 @@ The first homework assignment of my Android development class. This project is a
 ##Extra credits attempted
 - A user is not allowed to apply a new username if the edit text field is empty.
 - Long pressing on the cover image changes the color of all the text views to a different color.
+- If using ConstraintLayout, utilize a Barrier or Guideline somewhere with a view constrained to it
+- All hardcoded dimensions & colors are extracted into res/values/dimens.xml & res/values/colors.xml respectively

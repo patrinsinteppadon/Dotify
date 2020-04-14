@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_inner">5dp</dimen>
+    <dimen name="dimen_controls">87dp</dimen>
+    <dimen name="textsize_title">25sp</dimen>
+    <dimen name="textsize_artist">22sp</dimen>
+    <dimen name="textsize_numplays">19sp</dimen>
+</resources>
