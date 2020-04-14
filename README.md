@@ -2,7 +2,8 @@
 
 ## Patrin Sinteppadon
 
-The first homework assignment of my Android development class. This project is a simple one-screen prototype of a music streaming service. 
+The first homework assignment of my Android development class. This project is a simple one-screen prototype of a music streaming service. This is an image of what the app is supposed to look like.
+![Stage 1 of the Dotify homework](runs-on-emulator.jpg)
 
 ### Extra credits attempted
 1. A user is not allowed to apply a new username if the edit text field is empty.
