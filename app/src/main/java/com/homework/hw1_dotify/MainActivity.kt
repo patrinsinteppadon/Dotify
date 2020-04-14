@@ -17,12 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // init number of plays
-        btnPlay.setOnClickListener {
-            numPlays++
-            updatePlays()
-        }
-
         // init "change user" button
         btnChangeUser.setOnClickListener {
             if (loggedIn) {
@@ -42,15 +36,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // init "previous song" button
-        btnPrev.setOnClickListener {
-            displayToast("Skipping to previous track")
-        }
-
-        // init "next song" button
-        btnNext.setOnClickListener {
-            displayToast("Skipping to next track")
-        }
+        // init play/next/prev buttons
+        initControlPanel()
 
         // init text color change button
         imgSongImg.setOnLongClickListener {
@@ -63,6 +50,28 @@ class MainActivity : AppCompatActivity() {
 
         // init screen
         updatePlays()
+    }
+
+    /**
+     * helper function to onCreate.
+     * initializes click listeners for the "next", "previous", and "play" buttons
+     */
+    private fun initControlPanel() {
+        // init "previous song" button
+        btnPrev.setOnClickListener {
+            displayToast("Skipping to previous track")
+        }
+
+        // init "next song" button
+        btnNext.setOnClickListener {
+            displayToast("Skipping to next track")
+        }
+
+        // init "play" button
+        btnPlay.setOnClickListener {
+            numPlays++
+            updatePlays()
+        }
     }
 
     /**
