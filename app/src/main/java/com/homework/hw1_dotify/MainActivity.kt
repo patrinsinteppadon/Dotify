@@ -28,14 +28,16 @@ class MainActivity : AppCompatActivity() {
                 etUsername.visibility = View.VISIBLE
                 tvUsername.visibility = View.INVISIBLE
                 btnChangeUser.text = getString(R.string.apply) // displays as "Apply"
-            } else {
+                loggedIn = false
+            } else if (!etUsername.text.isBlank()) {
                 tvUsername.text = etUsername.text
                 tvUsername.visibility = View.VISIBLE
                 etUsername.visibility = View.INVISIBLE
                 btnChangeUser.text = getString(R.string.change_user) // displays as "Change User"
+                loggedIn = true
+            } else {
+                displayToast("Please enter a username")
             }
-
-            loggedIn = !loggedIn
         }
 
         // init "previous song" button
@@ -46,6 +48,11 @@ class MainActivity : AppCompatActivity() {
         // init "next song" button
         btnNext.setOnClickListener {
             displayToast("Skipping to next track")
+        }
+
+        // init text color change button
+        imgSongImg.setOnLongClickListener() {
+            tvUsername
         }
 
         // init screen
