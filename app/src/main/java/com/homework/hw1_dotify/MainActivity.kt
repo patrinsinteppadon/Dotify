@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
+    private val textRecolor = R.color.colorPrimaryDark
     private var numPlays = Random.nextInt(1, 1001) // number of times the song has been played
     private var loggedIn = true
 
@@ -51,8 +53,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         // init text color change button
-        imgSongImg.setOnLongClickListener() {
-            tvUsername
+        imgSongImg.setOnLongClickListener {
+            val textViews: List<TextView> = listOf(tvUsername, tvSongTitle, tvSongArtist, tvSongPlays)
+            for (text in textViews) {
+                recolorText(text)
+            }
+            true // lol setOnLongClickListener requires a boolean return. Could you explain why?
         }
 
         // init screen
@@ -72,5 +78,13 @@ class MainActivity : AppCompatActivity() {
      */
     private fun displayToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * extra credit function.
+     * Long pressing on the cover image changes the color of all the text views to a different color.
+     */
+    private fun recolorText(view: TextView) {
+        view.setTextColor(ContextCompat.getColor(this, textRecolor))
     }
 }
