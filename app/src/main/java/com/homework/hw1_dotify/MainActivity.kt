@@ -1,14 +1,22 @@
 package com.homework.hw1_dotify
 
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_song.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        const val SONG_TITLE = "SongName"
+        const val SONG_ARTIST = "SongArtist"
+        const val SONG_IMG = "SongImage"
+    }
     private val textRecolor = R.color.colorPrimaryDark
     private var numPlays = Random.nextInt(1, 1001) // number of times the song has been played
     private var loggedIn = true
@@ -17,24 +25,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // init "change user" button
-        btnChangeUser.setOnClickListener {
-            if (loggedIn) {
-                etUsername.text.clear()
-                etUsername.visibility = View.VISIBLE
-                tvUsername.visibility = View.INVISIBLE
-                btnChangeUser.text = getString(R.string.apply) // displays as "Apply"
-                loggedIn = false
-            } else if (!etUsername.text.isBlank()) {
-                tvUsername.text = etUsername.text
-                tvUsername.visibility = View.VISIBLE
-                etUsername.visibility = View.INVISIBLE
-                btnChangeUser.text = getString(R.string.change_user) // displays as "Change User"
-                loggedIn = true
-            } else {
-                displayToast("Please enter a username")
-            }
+        bindSongInfo() // binds extras to page
+        initPageElements()
+
+    }
+
+    private fun bindSongInfo() {
+        val title = intent.getStringExtra(SONG_TITLE)
+        val artist = intent.getStringExtra(SONG_ARTIST)
+        val image = intent.getIntExtra(SONG_IMG, -1)
+
+        if (title != null && artist != null && image != -1) {
+            tvSongTitle.text = title.toString()
+            tvSongArtist.text = artist.toString()
+            imgSongImg.setImageResource(image)
+        } else {
+            Toast.makeText(this, "Whoops--something went wrong", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun initPageElements() {
+        // init "change user" button
+        btnChangeUser.setOnClickListener {changeUser()}
 
         // init play/next/prev buttons
         initControlPanel()
@@ -50,6 +62,24 @@ class MainActivity : AppCompatActivity() {
 
         // init screen
         updatePlays()
+    }
+
+    private fun changeUser() {
+        if (loggedIn) {
+            etUsername.text.clear()
+            etUsername.visibility = View.VISIBLE
+            tvUsername.visibility = View.INVISIBLE
+            btnChangeUser.text = getString(R.string.apply) // displays as "Apply"
+            loggedIn = false
+        } else if (!etUsername.text.isBlank()) {
+            tvUsername.text = etUsername.text
+            tvUsername.visibility = View.VISIBLE
+            etUsername.visibility = View.INVISIBLE
+            btnChangeUser.text = getString(R.string.change_user) // displays as "Change User"
+            loggedIn = true
+        } else {
+            displayToast("Please enter a username")
+        }
     }
 
     /**

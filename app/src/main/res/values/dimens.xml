@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="padding_medium">12dp</dimen>
     <dimen name="margin_inner">5dp</dimen>
     <dimen name="dimen_controls">87dp</dimen>
     <dimen name="textsize_title">25sp</dimen>
