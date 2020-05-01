@@ -1,129 +1,51 @@
 package com.homework.hw1_dotify
 
-import android.media.Image
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcelable
-import android.view.View
-import android.widget.*
-import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.item_song.*
-import kotlin.random.Random
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
-    companion object {
-        const val SONG_TITLE = "SongName"
-        const val SONG_ARTIST = "SongArtist"
-        const val SONG_IMG = "SongImage"
-    }
-    private val textRecolor = R.color.colorPrimaryDark
-    private var numPlays = Random.nextInt(1, 1001) // number of times the song has been played
-    private var loggedIn = true
-
+class MainActivity : AppCompatActivity() { // TODO: how to make this implement an app AND the Interface at the same time?
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bindSongInfo() // binds extras to page
-        initPageElements()
 
+
+        // create the Fragments and bind them to the page
+        initSongList()
+
+        // example of how we'll shuffle the list
+        shuffleButton.setOnClickListener {
+            val songList = supportFragmentManager.findFragmentByTag(SongListFragment.TAG) as SongListFragment
+            songList.shuffle() // private function that performs the shuffling
+
+        }
     }
 
-    private fun bindSongInfo() {
-        val title = intent.getStringExtra(SONG_TITLE)
-        val artist = intent.getStringExtra(SONG_ARTIST)
-        val image = intent.getIntExtra(SONG_IMG, -1)
-
-        if (title != null && artist != null && image != -1) {
-            tvSongTitle.text = title.toString()
-            tvSongArtist.text = artist.toString()
-            imgSongImg.setImageResource(image)
+    private fun initSongList() {
+        if (supportFragmentManager.findFragmentByTag(SongListFragment.TAG) == null) {
+            // do the initializing
         } else {
-            Toast.makeText(this, "Whoops--something went wrong", Toast.LENGTH_SHORT).show()
+            // fragment already exists
         }
-    }
-
-    private fun initPageElements() {
-        // init "change user" button
-        btnChangeUser.setOnClickListener {changeUser()}
-
-        // init play/next/prev buttons
-        initControlPanel()
-
-        // init text color change button
-        imgSongImg.setOnLongClickListener {
-            val textViews: List<TextView> = listOf(tvUsername, tvSongTitle, tvSongArtist, tvSongPlays)
-            for (text in textViews) {
-                recolorText(text)
-            }
-            true // lol setOnLongClickListener requires a boolean return. Could you explain why?
+        val songList = SongListFragment() // how to pass a List<Song> to the RecyclerView Fragment
+        val argumentBundle = Bundle().apply {
+            val email = listOfSongs // get listOfSongs from the EricChee api call
+            putParcelable(SongListFragment.arg_songlist, email)
         }
 
-        // init screen
-        updatePlays()
-    }
+        songList.arguments = argumentBundle
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.frameMain, songList)
+            .addToBackStack(SongListFragment.TAG)
+            .commit()
 
-    private fun changeUser() {
-        if (loggedIn) {
-            etUsername.text.clear()
-            etUsername.visibility = View.VISIBLE
-            tvUsername.visibility = View.INVISIBLE
-            btnChangeUser.text = getString(R.string.apply) // displays as "Apply"
-            loggedIn = false
-        } else if (!etUsername.text.isBlank()) {
-            tvUsername.text = etUsername.text
-            tvUsername.visibility = View.VISIBLE
-            etUsername.visibility = View.INVISIBLE
-            btnChangeUser.text = getString(R.string.change_user) // displays as "Change User"
-            loggedIn = true
-        } else {
-            displayToast("Please enter a username")
-        }
-    }
-
-    /**
-     * helper function to onCreate.
-     * initializes click listeners for the "next", "previous", and "play" buttons
-     */
-    private fun initControlPanel() {
-        // init "previous song" button
-        btnPrev.setOnClickListener {
-            displayToast("Skipping to previous track")
-        }
-
-        // init "next song" button
-        btnNext.setOnClickListener {
-            displayToast("Skipping to next track")
-        }
-
-        // init "play" button
-        btnPlay.setOnClickListener {
-            numPlays++
-            updatePlays()
-        }
-    }
-
-    /**
-     * binds current num of song plays to the screen
-     */
-    private fun updatePlays() {
-        tvSongPlays.text = "$numPlays ${getString(R.string.plays)}" // displays as: "x plays"
-    }
-
-    /**
-     * prototype function.
-     * displays message explaining intended behavior of final product.
-     */
-    private fun displayToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    /**
-     * extra credit function.
-     * Long pressing on the cover image changes the color of all the text views to a different color.
-     */
-    private fun recolorText(view: TextView) {
-        view.setTextColor(ContextCompat.getColor(this, textRecolor))
+        // apply click listener to the songs?
+//        findViewById<FrameLayout>(R.id.frameMain).setOnClickListener {
+//            var song = currentSong
+//            if (song != null) {
+//                openBigPlayer(song)
+//            }
+//        }
     }
 }

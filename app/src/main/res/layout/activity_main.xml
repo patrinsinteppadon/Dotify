@@ -2,129 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
     tools:context=".MainActivity">
 
-    <!-- header -->
-    <TextView
-        android:id="@+id/tvUsername"
+    <FrameLayout
+        android:id="@+id/frameMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="strongest_avenger777"
-        tools:text="username"
-
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnChangeUser"
-        app:layout_constraintBottom_toBottomOf="@+id/btnChangeUser" />
-
-    <EditText
-        android:id="@+id/etUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter name"
-        android:visibility="gone"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnChangeUser"
-        app:layout_constraintBottom_toBottomOf="@+id/btnChangeUser" />
-
-    <Button
-        android:id="@+id/btnChangeUser"
-        android:text="Change User"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- song info display -->
-    <ImageView
-        android:id="@+id/imgSongImg"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/dreamers"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnChangeUser"
-        android:layout_marginTop="@dimen/margin_inner" />
-
-    <TextView
-        android:id="@+id/tvSongTitle"
-        android:text="It's Something to Be Alive"
-        android:textSize="@dimen/textsize_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/imgSongImg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="@dimen/margin_inner"
-        />
-
-    <TextView
-        android:id="@+id/tvSongArtist"
-        android:text="DREAMERS"
-        android:textSize="@dimen/textsize_artist"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvSongTitle"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/tvSongPlays"
-        android:text="0 plays"
-        android:textSize="@dimen/textsize_numplays"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvSongArtist"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <!-- Song controller -->
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/divControls"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="tvSongPlays" />
-
-    <ImageButton
-        android:id="@+id/btnPrev"
-        android:layout_width="@dimen/dimen_controls"
-        android:layout_height="@dimen/dimen_controls"
-        android:src="@drawable/btn_skip"
-        android:scaleType="fitCenter"
-        android:scaleX="-1"
-        app:layout_constraintRight_toLeftOf="@id/btnPlay"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnPlay"
-        app:layout_constraintBottom_toBottomOf="@id/btnPlay" />
-
-    <ImageButton
-        android:id="@+id/btnPlay"
-        android:layout_width="@dimen/dimen_controls"
-        android:layout_height="@dimen/dimen_controls"
-        android:scaleType="fitCenter"
-        android:src="@drawable/btn_play"
-        app:layout_constraintTop_toBottomOf="@+id/divControls"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="@dimen/margin_inner"/>
-
-    <ImageButton
-        android:id="@+id/btnNext"
-        android:layout_width="@dimen/dimen_controls"
-        android:layout_height="@dimen/dimen_controls"
-        android:scaleType="fitCenter"
-        android:src="@drawable/btn_skip"
-        app:layout_constraintLeft_toRightOf="@id/btnPlay"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnPlay"
-        app:layout_constraintBottom_toBottomOf="@id/btnPlay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
