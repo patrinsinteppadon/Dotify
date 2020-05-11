@@ -2,10 +2,12 @@ package com.homework.hw1_dotify
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ericchee.songdataprovider.Song
@@ -17,8 +19,8 @@ import com.ericchee.songdataprovider.SongDataProvider
  */
 class SongListFragment: Fragment() {
     companion object {
-        val TAG = "TAG_SONG_LIST_FRAGMENT"
-        val ARG_SONG_LIST = "ARG LIST OF SONGS"
+        const val TAG = "TAG_SONG_LIST_FRAGMENT"
+        const val ARG_SONG_LIST = "ARG LIST OF SONGS"
 
         fun getInstance(listOfSongs: List<Song>): SongListFragment { // use this to pass arguments to Fragment
             var instance = SongListFragment()
@@ -44,12 +46,13 @@ class SongListFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initRecyclerView()
 
         // get the song data from args
         arguments?.getParcelableArrayList<Song>(ARG_SONG_LIST)?.let {
             initialSongs = it
         }
+
+        Log.i("debug", initialSongs[0].title)
     }
 
     override fun onCreateView(
@@ -57,26 +60,28 @@ class SongListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_songlist, container, false)
+        val fragment = inflater.inflate(R.layout.fragment_songlist, container, false)
+        val recyclerView = fragment.findViewById<RecyclerView>(R.id.rvSongList)
+
+        initRecyclerView(recyclerView)
+        return fragment
     }
 
     /** Section 2 ============ Private functions */
 
-
-
-    private fun initRecyclerView() {
-        val listOfSongs = SongDataProvider.getAllSongs() // TODO: listOfSongs becomes a parameter for the Fragment
-        val songListAdapter = SongListAdapter(listOfSongs)
+    /** initializes the songs list and its adapter */
+    private fun initRecyclerView(recyclerView: RecyclerView) {
+        songListAdapter = SongListAdapter(initialSongs)
         songListAdapter.onSongClickListener = {
             // update the Activity with the value of "it"
         }
 
-        findViewById<RecyclerView>(R.id.rvSongList).adapter = songListAdapter // TODO: this occurs in Activity
+        recyclerView.adapter = songListAdapter
     }
 
     // perform shuffle behavior
     fun shuffle() {
-        songListAdapter.addEmail(Email("content", "author"))
+        //songListAdapter.addEmail(Email("content", "author"))
     }
 
 
