@@ -8,6 +8,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ericchee.songdataprovider.Song
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 
 class SongListAdapter(initialListOfSongs: List<Song>): RecyclerView.Adapter<SongListAdapter.SongViewHolder>() {
     private var listOfSongs: List<Song> = initialListOfSongs.toList()   // create new instance of list
@@ -49,7 +51,6 @@ class SongListAdapter(initialListOfSongs: List<Song>): RecyclerView.Adapter<Song
      * holds onto a single item_song, with a bind function for changing the title, artist and image.
      */
     inner class SongViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        // what does calling itemView.findViewById do differently from just calling findViewById?
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvArtist = itemView.findViewById<TextView>(R.id.tvArtist)
         private val ivAlbum = itemView.findViewById<ImageView>(R.id.ivAlbum)
@@ -57,7 +58,7 @@ class SongListAdapter(initialListOfSongs: List<Song>): RecyclerView.Adapter<Song
         fun bind(song: Song, position: Int) {
             tvTitle.text = song.title
             tvArtist.text = song.artist
-            ivAlbum.setImageResource(song.smallImageID)
+            Picasso.get().load(song.smallImageID).into(ivAlbum);
 
             itemView.setOnClickListener {
                 onSongClickListener?.invoke(song)

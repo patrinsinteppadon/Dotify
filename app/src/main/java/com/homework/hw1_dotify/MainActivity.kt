@@ -7,15 +7,24 @@ import android.os.Parcelable
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_song.*
 import kotlin.random.Random
 
+/**
+ * WHAT'S NEW IN HW4:
+ *  - Remember number of plays for each song using Application
+ *  - Makes an HTTP request to an API using Volley
+ *  - Converts results of JSON into Song objects using GSON
+ *  - Bind images using Picasso.
+ * */
 class MainActivity : AppCompatActivity() {
     companion object {
         const val SONG_TITLE = "SongName"
         const val SONG_ARTIST = "SongArtist"
         const val SONG_IMG = "SongImage"
+        const val SONG_PLAYS = "SongPlays"
     }
     private val textRecolor = R.color.colorPrimaryDark
     private var numPlays = Random.nextInt(1, 1001) // number of times the song has been played
@@ -34,11 +43,14 @@ class MainActivity : AppCompatActivity() {
         val title = intent.getStringExtra(SONG_TITLE)
         val artist = intent.getStringExtra(SONG_ARTIST)
         val image = intent.getIntExtra(SONG_IMG, -1)
+        val plays  = intent.getIntExtra(SONG_PLAYS, -1)
 
-        if (title != null && artist != null && image != -1) {
+        if (title != null && artist != null && image != -1 &&  plays != -1) {
             tvSongTitle.text = title.toString()
             tvSongArtist.text = artist.toString()
-            imgSongImg.setImageResource(image)
+//            imgSongImg.setImageResource(image) // replace with picasso
+            Picasso.get().load(image).into(imgSongImg);
+            numPlays = plays
         } else {
             Toast.makeText(this, "Whoops--something went wrong", Toast.LENGTH_SHORT).show()
         }
